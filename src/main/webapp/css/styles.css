@@ -1,0 +1,13 @@
+.good-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0d5e09;
+    margin-bottom: 20px;
+}
+.bad-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #5e0923;
+    margin-bottom: 20px;
+}
+
