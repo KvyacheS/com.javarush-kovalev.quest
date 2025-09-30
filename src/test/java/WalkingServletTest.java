@@ -1,4 +1,5 @@
 import Exceptions.SceneActionException;
+import Exceptions.SceneTransException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -72,6 +73,42 @@ public class WalkingServletTest {
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    void testDoPost_whenValidaTrans_thenDoSendRedirect() throws IOException {
+        when(session.getAttribute("currentScene")).thenReturn("corridor");
+        when(request.getParameter("targetScene")).thenReturn("bathroom");
+        servlet.doPost(request, response);
+        verify(response).sendRedirect("bathroom.jsp");
+    }
+
+    @Test
+    void testDoPost_whenSceneisNull_throwSceneTransException() throws IOException {
+        when(session.getAttribute("currentScene")).thenReturn("corridor");
+        when(request.getParameter("targetScene")).thenReturn(null);
+        assertThrows(SceneTransException.class, () -> servlet.doPost(request, response));
+    }
+
+    @Test
+    void testDoPost_whenSceneDontExist_throwSceneTransException() throws IOException {
+        when(session.getAttribute("currentScene")).thenReturn("corridor");
+        when(request.getParameter("targetScene")).thenReturn("garage");
+        assertThrows(SceneTransException.class, () -> servlet.doPost(request, response));
+    }
+
+    @Test
+    void testDoPost_whenTransDontExist_throwSceneTransException() throws IOException {
+        when(session.getAttribute("currentScene")).thenReturn("bathroom");
+        when(request.getParameter("targetScene")).thenReturn("kitchen");
+        assertThrows(SceneTransException.class, () -> servlet.doPost(request, response));
+    }
+
+    @Test
+    void testDoPost_whenCurrentSceneEqualsTarget_throwSceneTransException() throws IOException {
+        when(session.getAttribute("currentScene")).thenReturn("bathroom");
+        when(request.getParameter("targetScene")).thenReturn("bathroom");
+        assertThrows(SceneTransException.class, () -> servlet.doPost(request, response));
     }
 
 
