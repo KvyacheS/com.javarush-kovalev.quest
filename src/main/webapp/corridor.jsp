@@ -9,7 +9,9 @@
 </head>
 <body>
 <p>Ты стоишь в коридоре своего дома, почесывая голову</p>
-
+<c:if test="${sessionScope.isCleanBody =='false'}">
+    <p>Ты не можешь одеться пока не помоешься</p>
+</c:if>
 <p>сейчас ты</p>
 
 <c:choose>
@@ -61,8 +63,11 @@
     <button type="submit">ты все еще можешь пойти спать...</button>
 </form>
 
+<c:if test="${sessionScope.isCleanBody =='true'}">
 <form action="dress-up" method="post">
     <button type="submit">одеться</button>
+</c:if>
+
 </form>
 </body>
 </html>
