@@ -14,48 +14,45 @@
     <c:when test="${fn:contains(sessionScope.suddenLoseReason, '...')}">
         <p>${sessionScope.suddenLoseReason}</p>
     </c:when>
-    <c:when test="${fn:contains(sessionScope.suddenLoseReason, '')}">
+    <c:otherwise>
         <p>ты  пришел на работу</p>
-    </c:when>
+    </c:otherwise>
 </c:choose>
 <p>и при этом ты</p>
 <c:choose>
     <c:when test="${fn:contains(sessionScope.isCleanBody, 'false')}">
         <p class="bad-text">Грязный</p>
     </c:when>
-    <c:when test="${fn:contains(sessionScope.isCleanBody, 'true')}">
+    <c:otherwise>
         <p class="good-text">Чистый</p>
-    </c:when>
+    </c:otherwise>
 </c:choose>
 
 <c:choose>
     <c:when test="${fn:contains(sessionScope.isCleanTeeth, 'false')}">
         <p class="bad-text">У тебя пахнет изо рта</p>
     </c:when>
-    <c:when test="${fn:contains(sessionScope.isCleanTeeth, 'true')}">
+    <c:otherwise>
         <p class="good-text">У тебя свежее дыхание</p>
-        <c:when test="${fn:contains(sessionScope.isEated, 'true')}">
-            <p class="good-text">Сыт</p>
-        </c:when>
-    </c:when>
+    </c:otherwise>
 </c:choose>
 
 <c:choose>
     <c:when test="${fn:contains(sessionScope.isEated, 'false')}">
         <p class="bad-text">Голоден</p>
     </c:when>
-    <c:when test="${fn:contains(sessionScope.isEated, 'true')}">
+    <c:otherwise>
         <p class="good-text">Сыт</p>
-    </c:when>
+    </c:otherwise>
 </c:choose>
 
 <c:choose>
     <c:when test="${fn:contains(sessionScope.isDressed, 'false')}">
         <p class="bad-text">Голый</p>
     </c:when>
-    <c:when test="${fn:contains(sessionScope.isDressed, 'true')}">
+    <c:otherwise>
         <p class="good-text">Одет</p>
-    </c:when>
+    </c:otherwise>
 </c:choose>
 
 <form action="restart" method="get">
